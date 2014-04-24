@@ -1,12 +1,29 @@
-Wrote a quick PHP Script to randomly select a member of our SDPHP User Group using the MeetUp API and polling all the members who RSVP for an Event. This version is designed to run from the command like ```php randomRSVP.php``` Thanks to @johncongdon for "making it work"
+#Pickme
+
+A quick PHP Script to randomly select a member from a MeetUp Event
+using the RSVP list via the MeetUp API.
+
+My original version was designed to run from the command like but I got a couple
+request to move my [Gist](https://gist.github.com/shocm/11260096) post to a Github Repo
+to allow more people to contribute and extend it.
+
+Some interesting suggestions where made such as;
+
+ - Create a Web Page instead of just command line.
+ - Allow people to be prompted and enter the Event Id.
+
+So here it is, feel free to add any improvement or bells and whistles you would like to it.
+
+Thanks to @johncongdon for "making it work"
+
+## Installation
+
+Clone this repo
+run ```composer install```
+
+Modify the script ```pickme-cli.php``` and add you MeetUp API Key and you Event Id.
+
+Run script ```php pickme-cli.php```
 
 
-Moved this Gist to a Git Repo to allow people to add contribute back and build out this simple script more.
-
-Some ideas include creating a Web page which makes a lot of sense. 
-
-# Create Composer file and add MeetUp API PAckage 
-composer init --require="dms/meetup-api-client:~1.0"
-
-# Install packages
-composer install
+Enjoy.
