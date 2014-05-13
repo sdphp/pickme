@@ -11,17 +11,16 @@
  * @param string meetupapi The Meetup API for the account to be used.
  * @param function callback A function to execute after successful ajax request.
  */
-function get_attendees( eventid, meetupapi, callback ){
+function get_attendees( eventid, callback ){
 
     $.ajax({
-        type: 'GET',
-        url: 'https://api.meetup.com/2/rsvps',
+        type: 'POST',
+        url: 'ajax.php',
         data: {
-            event_id: eventid,
-            key: meetupapi
+            event_id: eventid
         },
         success: callback,
-        dataType: 'jsonp'
+		dataType:'json'
     })
     .fail( function( xhr, status, error ){
         $("#winner-container").html("There was an error with the ajax request. Check your internet connection and the console for more information.");
@@ -38,14 +37,12 @@ function get_attendees( eventid, meetupapi, callback ){
  * @param mixed data The response from the Meetup API.
  * @return null
  */
-function parse_attendees( data ){
+var attendee = [];
+function parse_attendees(attendees){
         
     // Check to see if we have results or an error.
     
-    if( data.results ){
-
-        var attendees = data.results,
-            attendee = [];
+    if(attendees){
         
         if( !isEmpty( attendees ) ) {
           
@@ -60,7 +57,7 @@ function parse_attendees( data ){
             
             }
             
-            select_winner( attendee );
+			select_winner( attendee );
             
         }
         
@@ -95,7 +92,7 @@ function parse_attendees( data ){
  */
 function isEmpty( obj ){
 
-    for( var i in obj){
+    for(var i in obj){
         return false;
     }
     
@@ -127,9 +124,19 @@ function select_winner( rsvps ){
                 
                 // If the code inside here runs, then display a picture of the chosen winner!
                 clearInterval(interval);
-                $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p>');
+                $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p><button id="again" class="btn btn-danger btn-lg">Run again?</button>&nbsp;<a href="javascript:location.reload();"><button class="btn btn-default btn-lg">Reload?</button></a>');
                 $('#countdown-timer').empty();
                 $('#winner-banner').text('WINNER!!!').css( {'font-size':'3em','color':'blue','font-weight':'bold'} );
+	
+				$('#again').click(function(e){
+					
+					$('#winner-banner').empty().css( {'font-size':'','color':'','font-weight':''} );
+					$('#countdown-timer').empty();
+					$('#winner-name').empty();
+					$('#winner-photo').empty();
+					
+					select_winner(attendee);
+				});
                 
                 // Shoot off some fireworks.
                 var r = 4 + parseInt(Math.random()*16);
@@ -185,12 +192,11 @@ function shuffle( array ) {
 $(document).ready(function(){
 
     $('#submit').click(function(e){
-        var event = $( '#meetingid' ).val(),
-            api = $( '#meetupapi' ).val();
+        var event = $( '#meetingid' ).val();
         
-        if( event && api ){
+        if( event ){
             $('#form-container').slideUp();
-            get_attendees( event, api, parse_attendees );
+            get_attendees( event, parse_attendees );
         } 
         
         else{

@@ -1,14 +1,9 @@
 <?php
-require 'vendor/autoload.php';
-use \DMS\Service\Meetup\MeetupKeyAuthClient;
+require 'config.php';
  
 $seconds_to_run = 10;
 $time_between_name_flash = 125000;  //in microseconds
-$screen_width = 80;  //If terminal font is large, this should be reduced.
- 
- 
-// Add you Meetup.com API Key
-$client = MeetupKeyAuthClient::factory(array('key' => '<YOUR MEETUP API KEY>'));
+$screen_width = 80;  //If terminal font is large, this should be reduced.	
  
 // Put the Event ID that you want to pull the RSVP list from
 // Event ID can be pulled from the URL of the Event on MeetUp if needed

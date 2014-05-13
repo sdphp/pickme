@@ -46,17 +46,16 @@
             <p></p>
             <input type="number" class="form-control input-lg" name="event" id="meetingid" placeholder="Enter Meetup Event ID (Required)" />
             <p></p>
-            <input type="text" class="form-control input-lg" name="api" id="meetupapi" placeholder="Enter Meetup API (Required)"/>
-            <p></p>
             <button type="submit" id="submit" class="btn btn-default btn-lg">Choose Winner</button>
 
         </div>
 
         <div id="winner-container" class="container">
-            <div id="winner-banner"></div>
+            
+			<div id="winner-banner"></div>
             <div id="countdown-timer"></div>
             <div id="winner-name"></div>
-            <div id="winner-photo"</div>
+            <div id="winner-photo"></div>
             
         </div>
 

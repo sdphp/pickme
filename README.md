@@ -13,12 +13,17 @@ Thanks to @johncongdon for "making it work"
 
 ## Installation
 
+Clone this repo
+
+Run ```composer install```
+
+Rename ```config-sample.php``` to ```config.php```
+
+Add your Meetup API key to ```config.php```
+
 ### Command Line
 
-Clone this repo
-run ```composer install```
-
-Modify the script ```pickme-cli.php``` and add you MeetUp API Key and you Event Id.
+Modify the script ```pickme-cli.php``` and add your Event Id.
 
 Run script ```php pickme-cli.php```
 
