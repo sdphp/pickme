@@ -1,7 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-use \DMS\Service\Meetup\MeetupKeyAuthClient;
 
-return array(
+$config = array(
     'meetup_api' => '<YOUR MEETUP API KEY>',
 )
