@@ -17,10 +17,10 @@
     </head>
     <body>
 
-        <!-- 
+        <!--
 
          Fireworks elements (cloned and animated via script):
-         
+
          #fireworks-template
          #fireContainer
 
@@ -34,29 +34,29 @@
         <div id="fireContainer"></div>
 
         <!--
-        
+
          Main app.
-        
+
         -->
 
 
         <div id="form-container" class="container">
 
-            Enter details below. 
+            Enter details below.
             <p></p>
-            <input type="number" class="form-control input-lg" name="event" id="meetingid" placeholder="Enter Meetup Event ID (Required)" />
+            <input type="text" class="form-control input-lg" name="event" id="meetingid" placeholder="Enter Meetup Event ID (Required)" />
             <p></p>
             <button type="submit" id="submit" class="btn btn-default btn-lg">Choose Winner</button>
 
         </div>
 
         <div id="winner-container" class="container">
-            
+
 			<div id="winner-banner"></div>
             <div id="countdown-timer"></div>
             <div id="winner-name"></div>
             <div id="winner-photo"></div>
-            
+
         </div>
 
         <script src="//code.jquery.com/jquery-1.11.0.js"></script>
