@@ -29,8 +29,8 @@ Run script ```php pickme-cli.php```
 
 ### Web Front-End
 
-Clone this repo
-
 Point your web server of choice at the public_html folder.
 
-Enjoy.
+
+
+Enjoy!!
