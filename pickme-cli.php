@@ -28,34 +28,20 @@ foreach ($meetup_rsvps as $rsvp){
 
 $start_time = time();
 $seconds = 0;
-
-function foo()
-{
-    $bar = 1 + 1;
-    $var2 = 3;
-
-    return true;
-
-}
-
-print "Our new winnner is" . str_repeat(' ', 80) . "\n";
-
 while ($seconds < $seconds_to_run) {
     shuffle($rsvps);
     $seconds = time() - $start_time;
 
-
-
     $max_name_width = $screen_width - strlen($seconds) - 3;
 
-    $name = substr($rsvps[0]['member']['newname'], 0, $max_name_width);
+    $name = substr($rsvps[0]['member']['name'], 0, $max_name_width);
     $name = str_pad($name, $max_name_width);
 
     print "\r" . str_repeat(' ', $screen_width) . "\r";
+    print "$seconds - " . $name;
     usleep($time_between_name_flash);
 }
 
 print "\r" . str_repeat(' ', $screen_width) . "\r";
+print "The winner is" . str_repeat(' ', 80) . "\n";
 print $rsvps[0]['member']['name']."\n";
-
-
