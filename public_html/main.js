@@ -7,9 +7,8 @@
  * Query the Meetup API and get a list of attendees,
  * given an API key.
  *
- * @param int eventid The Meetup Event ID to be used for gathering a list.
- * @param string meetupapi The Meetup API for the account to be used.
- * @param function callback A function to execute after successful ajax request.
+ * @param eventid int The Meetup Event ID to be used for gathering a list.
+ * @param callback function A function to execute after successful ajax request.
  */
 function get_attendees( eventid, callback ){
 
@@ -87,8 +86,8 @@ function parse_attendees(attendees){
 /**
  * Checks to see if a given object is empty.
  *
- * @param object obj The object in question.
- * @return bool Returns true if the object is empty, false if not.
+ * @param obj object The object in question.
+ * @return boolean Returns true if the object is empty, false if not.
  */
 function isEmpty( obj ){
 
@@ -103,7 +102,7 @@ function isEmpty( obj ){
 /**
  * Pick a winner and do something special for them.
  *
- * @param mixed rsvps The RSVP's in the proper format.
+ * @param rsvps mixed The RSVP's in the proper format.
  * @return null
  */
 function select_winner( rsvps ){
