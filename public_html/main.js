@@ -4,11 +4,15 @@
  */
 
 /**
+ * @callback parseAttendeesCallback
+ * @param {Object[]} attendees
+ */
+/**
  * Query the Meetup API and get a list of attendees,
  * given an API key.
  *
- * @param eventid int The Meetup Event ID to be used for gathering a list.
- * @param callback function A function to execute after successful ajax request.
+ * @param {int} eventid The Meetup Event ID to be used for gathering a list.
+ * @param {parseAttendeesCallback} callback A function to execute after successful ajax request.
  */
 function get_attendees(eventid, callback) {
 
@@ -33,7 +37,9 @@ function get_attendees(eventid, callback) {
  *
  * Also, do some basic error checking to see if we got a response or error.
  *
- * @param mixed data The response from the Meetup API.
+ * @param {Object[]} attendees The response from the Meetup API.
+ * @param {Object} attendees[].member The individual object that contains details about the member.
+ * @param {string} attendees[].member_photo.photo_link A URL to the member's photo.
  * @return null
  */
 var attendee = [];
@@ -81,7 +87,7 @@ function parse_attendees(attendees) {
 /**
  * Pick a winner and do something special for them.
  *
- * @param rsvps mixed The RSVP's in the proper format.
+ * @param {Object[]} rsvps The RSVP's in the proper format.
  * @return null
  */
 function select_winner(rsvps) {
@@ -140,8 +146,8 @@ function select_winner(rsvps) {
 /**
  * Randomize a given array
  *
- * @param array array The array to be randomized.
- * @return array The randomized array.
+ * @param {Array} array The array to be randomized.
+ * @return {Array} The randomized array.
  */
 function shuffle(array) {
     var currentIndex = array.length,
