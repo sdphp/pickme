@@ -64,8 +64,6 @@ function parse_attendees(attendees){
         
             $("#winner-container").html("No RSVP's were found. Most likely, you didn't put in the right event ID. <a href=\"javascript:location.reload()\">Reload the page</a> and try again.");
             
-            return;
-        
         }
         
     }
@@ -77,9 +75,6 @@ function parse_attendees(attendees){
             data.problem + "<p></p>"+
             "Most likely, you didn't put in the right API key. <a href=\"javascript:location.reload()\">Reload the page</a> and try again."
         );
-        
-        return;
-        
     }
 }
 
@@ -197,11 +192,6 @@ $(document).ready(function(){
             $('#form-container').slideUp();
             get_attendees( event, parse_attendees );
         } 
-        
-        else{
-            return;
-        }
-
     });
 
 });
