@@ -43,7 +43,7 @@ function parse_attendees(attendees) {
 
     if (attendees) {
 
-        if (!isEmpty(attendees)) {
+        if (!$.isEmptyObject(attendees)) {
 
             for (i = 0; i < attendees.length; i++) {
 
@@ -76,22 +76,6 @@ function parse_attendees(attendees) {
             "Most likely, you didn't put in the right API key. <a href=\"javascript:location.reload()\">Reload the page</a> and try again."
         );
     }
-}
-
-/**
- * Checks to see if a given object is empty.
- *
- * @param obj object The object in question.
- * @return boolean Returns true if the object is empty, false if not.
- */
-function isEmpty(obj) {
-
-    for (var i in obj) {
-        return false;
-    }
-
-    return true;
-
 }
 
 /**
