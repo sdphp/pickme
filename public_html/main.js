@@ -76,8 +76,6 @@ function parse_attendees(attendees) {
     else {
 
         $("#winner-container").html(
-            data.status + "<p></p>" +
-            data.problem + "<p></p>" +
             "Most likely, you didn't put in the right API key. <a href=\"javascript:location.reload()\">Reload the page</a> and try again."
         );
     }
