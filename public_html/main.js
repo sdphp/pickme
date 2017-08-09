@@ -42,13 +42,12 @@ function get_attendees(eventid, callback) {
  * @param {string} attendees[].member_photo.photo_link A URL to the member's photo.
  * @return null
  */
-var attendee = [];
 function parse_attendees(attendees) {
 
     // Check to see if we have results or an error.
 
     if (attendees) {
-
+        var rsvps = [];
         if (!$.isEmptyObject(attendees)) {
 
             for (var i = 0; i < attendees.length; i++) {
@@ -57,12 +56,12 @@ function parse_attendees(attendees) {
                     var obj = {};
                     obj.name = attendees[i].member.name;
                     attendees[i].member_photo ? obj.photo = attendees[i].member_photo.photo_link : obj.photo = "";
-                    attendee.push(obj);
+                    rsvps.push(obj);
                 }
 
             }
 
-            select_winner(attendee);
+            select_winner(rsvps);
 
         }
 
@@ -121,7 +120,7 @@ function select_winner(rsvps) {
                 $('#winner-name').empty();
                 $('#winner-photo').empty();
 
-                select_winner(attendee);
+                select_winner(rsvps);
             });
 
             // Shoot off some fireworks.
