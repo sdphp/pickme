@@ -113,7 +113,7 @@ function select_winner(rsvps) {
             $('#countdown-timer').empty();
             $('#winner-banner').text('WINNER!!!').css({'font-size': '3em', 'color': 'blue', 'font-weight': 'bold'});
 
-            $('#again').click(function (e) {
+            $('#again').click(function () {
 
                 $('#winner-banner').empty().css({'font-size': '', 'color': '', 'font-weight': ''});
                 $('#countdown-timer').empty();
@@ -176,7 +176,7 @@ function shuffle(array) {
  */
 $(document).ready(function () {
 
-    $('#submit').click(function (e) {
+    $('#submit').click(function () {
         var event = $('#meetingid').val();
 
         if (event) {
