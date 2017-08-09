@@ -51,7 +51,7 @@ function parse_attendees(attendees) {
 
         if (!$.isEmptyObject(attendees)) {
 
-            for (i = 0; i < attendees.length; i++) {
+            for (var i = 0; i < attendees.length; i++) {
 
                 if (attendees[i].response == "yes") {
                     var obj = {};
