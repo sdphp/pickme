@@ -101,7 +101,7 @@ function select_winner(rsvps) {
         seconds = new Date().getTime() - start_time;
 
         //noinspection JSJQueryEfficiency
-        $('#countdown-timer').text(Math.round(Math.abs((seconds - seconds_to_run) / 1000)));
+        $('#countdown-timer').text(Math.ceil(Math.abs((seconds - seconds_to_run) / 1000)));
 
         if (seconds > seconds_to_run) {
 
