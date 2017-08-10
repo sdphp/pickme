@@ -21,6 +21,8 @@ Rename ```config-sample.php``` to ```config.php```
 
 Add your Meetup API key to ```config.php```
 
+Add members who you _don't_ want to be part of the drawing to the excluded_member_ids array in ```config.php```
+
 ### Command Line
 
 Modify the script ```pickme-cli.php``` and add your Event Id.
