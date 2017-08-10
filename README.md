@@ -9,7 +9,7 @@ to allow more people to contribute and extend it.
 
 So here it is, feel free to add any improvement or bells and whistles you would like to it.
 
-Thanks to @johncongdon for "making it work"
+Thanks to @johncongdon for "making it work" and @piontkowski for putting it on the web.
 
 ## Installation
 
