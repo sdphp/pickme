@@ -94,7 +94,7 @@ function select_winner(rsvps) {
 
     var start_time, seconds_to_run, seconds, interval;
     start_time = new Date().getTime();
-    seconds_to_run = 5000;
+    seconds_to_run = 3000;
     seconds = 0;
     interval = setInterval(function () {
 
