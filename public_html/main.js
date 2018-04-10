@@ -52,7 +52,7 @@ function parse_attendees(attendees) {
 
             for (var i = 0; i < attendees.length; i++) {
 
-                if (attendees[i].response == "yes") {
+                if (attendees[i].response === "yes") {
                     var obj = {};
                     obj.name = attendees[i].member.name;
                     attendees[i].member_photo ? obj.photo = attendees[i].member_photo.photo_link : obj.photo = "";
