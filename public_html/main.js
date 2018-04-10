@@ -107,7 +107,7 @@ function select_winner(rsvps) {
 
             // If the code inside here runs, then display a picture of the chosen winner!
             clearInterval(interval);
-            $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p><button id="again" class="btn btn-danger btn-lg">Run again?</button>&nbsp;<a href="javascript:location.reload();"><button class="btn btn-default btn-lg">Reload?</button></a>');
+            $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p><button id="again" class="btn btn-primary btn-lg">Run Again</button>&nbsp;<button id="reset" class="btn btn-default btn-lg">Reset</button>&nbsp;<a href="javascript:location.reload();"><button class="btn btn-danger btn-lg">Reload</button></a>');
             $('#countdown-timer').empty();
             $('#winner-banner').text('WINNER!!!').css({'font-size': '3em', 'color': 'blue', 'font-weight': 'bold'});
 
@@ -120,6 +120,16 @@ function select_winner(rsvps) {
 
                 rsvps.shift();
                 select_winner(rsvps);
+            });
+
+            $('#reset').click(function () {
+
+                $('#winner-banner').empty().css({'font-size': '', 'color': '', 'font-weight': ''});
+                $('#countdown-timer').empty();
+                $('#winner-name').empty();
+                $('#winner-photo').empty();
+
+                run();
             });
 
             // Shoot off some fireworks.
