@@ -171,17 +171,24 @@ function shuffle(array) {
 }
 
 /**
+ * Run the program to pick a winner for the Meetup.
+ */
+function run()
+{
+    var event = $('#meetingid').val();
+
+    if (event) {
+        $('#form-container').slideUp();
+        get_attendees(event, parse_attendees);
+    }
+}
+
+/**
  * Finally, bind an event handler to the submit button click event.
  */
 $(document).ready(function () {
 
     $('#submit').click(function () {
-        var event = $('#meetingid').val();
-
-        if (event) {
-            $('#form-container').slideUp();
-            get_attendees(event, parse_attendees);
-        }
+        run();
     });
-
 });
