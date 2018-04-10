@@ -118,6 +118,7 @@ function select_winner(rsvps) {
                 $('#winner-name').empty();
                 $('#winner-photo').empty();
 
+                rsvps.shift();
                 select_winner(rsvps);
             });
 
