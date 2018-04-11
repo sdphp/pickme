@@ -4,14 +4,17 @@
  */
 
 /**
+ * @callback parseAttendeesCallback
+ * @param {Object[]} attendees
+ */
+/**
  * Query the Meetup API and get a list of attendees,
  * given an API key.
  *
- * @param int eventid The Meetup Event ID to be used for gathering a list.
- * @param string meetupapi The Meetup API for the account to be used.
- * @param function callback A function to execute after successful ajax request.
+ * @param {int} eventid The Meetup Event ID to be used for gathering a list.
+ * @param {parseAttendeesCallback} callback A function to execute after successful ajax request.
  */
-function get_attendees( eventid, callback ){
+function get_attendees(eventid, callback) {
 
     $.ajax({
         type: 'POST',
@@ -20,12 +23,12 @@ function get_attendees( eventid, callback ){
             event_id: eventid
         },
         success: callback,
-		dataType:'json'
+        dataType: 'json'
     })
-    .fail( function( xhr, status, error ){
-        $("#winner-container").html("There was an error with the ajax request. Check your internet connection and the console for more information.");
-        console.log("Status: " + status + " Error Thrown: " + error);
-    });
+        .fail(function (xhr, status, error) {
+            $("#winner-container").html("There was an error with the ajax request. Check your internet connection and the console for more information.");
+            console.log("Status: " + status + " Error Thrown: " + error);
+        });
 
 }
 
@@ -34,175 +37,168 @@ function get_attendees( eventid, callback ){
  *
  * Also, do some basic error checking to see if we got a response or error.
  *
- * @param mixed data The response from the Meetup API.
+ * @param {Object[]} attendees The response from the Meetup API.
+ * @param {Object} attendees[].member The individual object that contains details about the member.
+ * @param {string} attendees[].member_photo.photo_link A URL to the member's photo.
  * @return null
  */
-var attendee = [];
-function parse_attendees(attendees){
-        
+function parse_attendees(attendees) {
+
     // Check to see if we have results or an error.
-    
-    if(attendees){
-        
-        if( !isEmpty( attendees ) ) {
-          
-            for( i = 0; i < attendees.length; i++ ){
-                
-                if( attendees[i].response == "yes" ){
+
+    if (attendees) {
+        var rsvps = [];
+        if (!$.isEmptyObject(attendees)) {
+
+            for (var i = 0; i < attendees.length; i++) {
+
+                if (attendees[i].response === "yes") {
                     var obj = {};
                     obj.name = attendees[i].member.name;
                     attendees[i].member_photo ? obj.photo = attendees[i].member_photo.photo_link : obj.photo = "";
-                    attendee.push(obj);
+                    rsvps.push(obj);
                 }
-            
+
             }
-            
-			select_winner( attendee );
-            
+
+            select_winner(rsvps);
+
         }
-        
-        else{
-        
+
+        else {
+
             $("#winner-container").html("No RSVP's were found. Most likely, you didn't put in the right event ID. <a href=\"javascript:location.reload()\">Reload the page</a> and try again.");
-            
-            return;
-        
+
         }
-        
+
     }
-    
+
     else {
-        
+
         $("#winner-container").html(
-            data.status + "<p></p>"+
-            data.problem + "<p></p>"+
             "Most likely, you didn't put in the right API key. <a href=\"javascript:location.reload()\">Reload the page</a> and try again."
         );
-        
-        return;
-        
     }
-}
-
-/**
- * Checks to see if a given object is empty.
- *
- * @param object obj The object in question.
- * @return bool Returns true if the object is empty, false if not.
- */
-function isEmpty( obj ){
-
-    for(var i in obj){
-        return false;
-    }
-    
-    return true;
-
 }
 
 /**
  * Pick a winner and do something special for them.
  *
- * @param mixed rsvps The RSVP's in the proper format.
+ * @param {Object[]} rsvps The RSVP's in the proper format.
  * @return null
  */
-function select_winner( rsvps ){
+function select_winner(rsvps) {
 
-    $('#winner-banner').text( 'Choosing winner in...' );
+    $('#winner-banner').text('Choosing winner in...');
 
 
-    var start_time = new Date().getTime(),
-        seconds_to_run = 5000, // in milliseconds
-        seconds = 0,
-        interval = setInterval( function(){
-        
-            seconds = new Date().getTime() - start_time;
-            
-            $('#countdown-timer').text( Math.round( Math.abs( ( seconds - seconds_to_run) / 1000 ) ) );
-            
-            if( seconds > seconds_to_run ){
-                
-                // If the code inside here runs, then display a picture of the chosen winner!
-                clearInterval(interval);
-                $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p><button id="again" class="btn btn-danger btn-lg">Run again?</button>&nbsp;<a href="javascript:location.reload();"><button class="btn btn-default btn-lg">Reload?</button></a>');
+    var start_time, seconds_to_run, seconds, interval;
+    start_time = new Date().getTime();
+    seconds_to_run = 3000;
+    seconds = 0;
+    interval = setInterval(function () {
+
+        seconds = new Date().getTime() - start_time;
+
+        //noinspection JSJQueryEfficiency
+        $('#countdown-timer').text(Math.ceil(Math.abs((seconds - seconds_to_run) / 1000)));
+
+        if (seconds > seconds_to_run) {
+
+            // If the code inside here runs, then display a picture of the chosen winner!
+            clearInterval(interval);
+            $('#winner-photo').html('<p><img src="' + rsvps[0].photo + '" width="150px" /></p><button id="again" class="btn btn-primary btn-lg">Run Again</button>&nbsp;<button id="reset" class="btn btn-default btn-lg">Reset</button>&nbsp;<a href="javascript:location.reload();"><button class="btn btn-danger btn-lg">Reload</button></a>');
+            $('#countdown-timer').empty();
+            $('#winner-banner').text('WINNER!!!').css({'font-size': '3em', 'color': 'blue', 'font-weight': 'bold'});
+
+            $('#again').click(function () {
+
+                $('#winner-banner').empty().css({'font-size': '', 'color': '', 'font-weight': ''});
                 $('#countdown-timer').empty();
-                $('#winner-banner').text('WINNER!!!').css( {'font-size':'3em','color':'blue','font-weight':'bold'} );
-	
-				$('#again').click(function(e){
-					
-					$('#winner-banner').empty().css( {'font-size':'','color':'','font-weight':''} );
-					$('#countdown-timer').empty();
-					$('#winner-name').empty();
-					$('#winner-photo').empty();
-					
-					select_winner(attendee);
-				});
-                
-                // Shoot off some fireworks.
-                var r = 4 + parseInt(Math.random()*16);
-                for(var i = r; i--;){
-                    setTimeout(
-                        'createFirework(8,14,2,null,null,null,null,null,Math.random()>0.5,true)',
-                        (i+1)*(1+parseInt(Math.random()*1000)));
-                    }
-                    
-                return; // End the program.
-                
-            }
-            
-            shuffle( rsvps );
-            
-            $('#winner-name').text( rsvps[0].name );
+                $('#winner-name').empty();
+                $('#winner-photo').empty();
 
-        }, 50 );
+                rsvps.shift();
+                select_winner(rsvps);
+            });
+
+            $('#reset').click(function () {
+
+                $('#winner-banner').empty().css({'font-size': '', 'color': '', 'font-weight': ''});
+                $('#countdown-timer').empty();
+                $('#winner-name').empty();
+                $('#winner-photo').empty();
+
+                run();
+            });
+
+            // Shoot off some fireworks.
+            var r = 4 + parseInt(Math.random() * 16);
+            for (var i = r; i--;) {
+                setTimeout(
+                    'createFirework(8,14,2,null,null,null,null,null,Math.random()>0.5,true)',
+                    (i + 1) * (1 + parseInt(Math.random() * 1000)));
+            }
+
+            return; // End the program.
+
+        }
+
+        shuffle(rsvps);
+
+        $('#winner-name').text(rsvps[0].name);
+
+    }, 50);
 
 }
 
 /**
  * Randomize a given array
  *
- * @param array array The array to be randomized.
- * @return array The randomized array.
+ * @param {Array} array The array to be randomized.
+ * @return {Array} The randomized array.
  */
-function shuffle( array ) {
+function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue,
         randomIndex;
 
     // While elements remain...
-    while ( 0 !== currentIndex ) {
+    while (0 !== currentIndex) {
 
         // Pick one of the elements...
-        randomIndex = Math.floor( Math.random() * currentIndex );
+        randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
         // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
-        
+
     }
 
     return array;
 }
 
 /**
+ * Run the program to pick a winner for the Meetup.
+ */
+function run()
+{
+    var event = $('#meetingid').val();
+
+    if (event) {
+        $('#form-container').slideUp();
+        get_attendees(event, parse_attendees);
+    }
+}
+
+/**
  * Finally, bind an event handler to the submit button click event.
  */
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $('#submit').click(function(e){
-        var event = $( '#meetingid' ).val();
-        
-        if( event ){
-            $('#form-container').slideUp();
-            get_attendees( event, parse_attendees );
-        } 
-        
-        else{
-            return;
-        }
-
+    $('#submit').click(function () {
+        run();
     });
-
 });

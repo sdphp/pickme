@@ -22,7 +22,7 @@ $meetup_rsvps = $client->getRSVPs(array('event_id' => $event_id));
 passthru('clear');
 
 $rsvps = array();
-foreach ($meetup_rsvps as $rsvp){
+foreach ($meetup_rsvps as $rsvp) {
     $rsvps[] = $rsvp;
 }
 
@@ -44,4 +44,4 @@ while ($seconds < $seconds_to_run) {
 
 print "\r" . str_repeat(' ', $screen_width) . "\r";
 print "The winner is" . str_repeat(' ', 80) . "\n";
-print $rsvps[0]['member']['name']."\n";
+print $rsvps[0]['member']['name'] . "\n";
